@@ -4,6 +4,8 @@ import java.util.function.Predicate;
 
 public class PredicateClass {
 
+  // TODO import java.util.function.Predicate; -> used to filter/match
+
   public static void main(String[] args) {
 
     // Predicate<T> is a functional interface i.e. one abstract method:
