@@ -1,7 +1,6 @@
-package func_interfaces_predicate;
+package supplier;
 
 import java.time.LocalTime;
-import java.util.Random;
 import java.util.function.Supplier;
 
 public class SupplierClass {
@@ -20,6 +19,7 @@ public class SupplierClass {
     System.out.println(localTimeSupplier.get());
 
     Supplier<Double> randomSupplier = Math::random;
+    System.out.println(randomSupplier.get());
     System.out.println(randomSupplier.get());
   }
 }
