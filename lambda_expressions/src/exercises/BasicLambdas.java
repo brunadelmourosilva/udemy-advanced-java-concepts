@@ -1,5 +1,8 @@
 package exercises;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -35,6 +38,14 @@ public class BasicLambdas {
     System.out.println("--------------------");
     basicLambdas.function();
     System.out.println("--------------------");
+
+    var listPeople = getPeople();
+
+    sortAge(listPeople);
+    System.out.println("--------------------");
+    sortName(listPeople);
+    System.out.println("--------------------");
+    sortHeight(listPeople);
   }
 
   public void consumer() {
@@ -93,5 +104,30 @@ public class BasicLambdas {
 
   private <T> boolean check(T t, Predicate<T> lambda) {
     return lambda.test(t);
+  }
+
+  private static List<Person> getPeople() {
+    List<Person> result = new ArrayList<>();
+    result.add(new Person("Mike", 33, 1.8));
+    result.add(new Person("Mary", 25, 1.4));
+    result.add(new Person("Alan", 34, 1.7));
+    result.add(new Person("Zoe", 30, 1.5));
+    return result;
+  }
+
+  private static void sortAge(List<Person> personList) {
+    personList.sort(Comparator.comparing(Person::getAge));
+    personList.forEach(System.out::println);
+  }
+
+  private static void sortName(List<Person> personList) {
+    personList.sort(Comparator.comparing(Person::getName));
+    personList.forEach(System.out::println);
+  }
+
+  private static void sortHeight(List<Person> personList) {
+    // personList.sort(Comparator.comparing(Person::getHeight, (s1, s2) -> {return s2.compareTo(s1);}));
+    personList.sort(Comparator.comparing(Person::getHeight, Comparator.reverseOrder()));
+    personList.forEach(p -> System.out.println(p));
   }
 }
