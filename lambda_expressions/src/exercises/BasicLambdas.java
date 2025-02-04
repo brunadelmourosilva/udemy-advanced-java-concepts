@@ -57,6 +57,10 @@ public class BasicLambdas {
 
     Consumer<String> consumerLambdaMR = System.out::println; // method reference
     consumerLambdaMR.accept("Consumer method reference");
+
+    PrintableReview<Integer, Integer, Integer, Integer> printableReview =
+        (t, u, v, w) -> System.out.println("Review consumer " + t + " " + u + " " + v + " " + w);
+    printableReview.print(1, 2, 3, 4);
   }
 
   public void supplier() {
@@ -68,6 +72,9 @@ public class BasicLambdas {
 
     Supplier<Integer> consumerLambda = () -> 77; // lambda
     System.out.println(consumerLambda.get());
+
+    SupplierReview<String> supplierReview = () -> "Review supplier - no params";
+    System.out.println(supplierReview.supplier());
   }
 
   public void predicate() {
@@ -90,6 +97,10 @@ public class BasicLambdas {
     Predicate<Integer> predicateLambdaAge = c -> c >= 18;
     System.out.println("Is Mike an adult (age 33, 1.8 meters)? " + check(33, predicateLambdaAge));
     System.out.println("Is Ann an adult (age 13, 1.4 meters)? " + check(13, predicateLambdaAge));
+
+    EvaluateReview<Integer, Integer> evaluateReview = (t, r) -> t > r;
+    System.out.println("Is 5 greater than 1? " + evaluateReview.isGreaterThan(5, 1));
+    System.out.println("Is 1 greater than 5? " + evaluateReview.isGreaterThan(1, 5));
   }
 
   public void function() {
@@ -100,6 +111,11 @@ public class BasicLambdas {
     Function<Integer, String> functionLambda =
         f -> "Number is (Function interface): ".concat(String.valueOf(f));
     System.out.println(functionLambda.apply(25));
+
+    FunctionableReview<String, String> functionableReview =
+            t -> "\"Bruna\" starts with ".concat(t) + "? " + "Bruna".startsWith(t);
+    System.out.println(functionableReview.apply("B"));
+    System.out.println(functionableReview.apply("D"));
   }
 
   private <T> boolean check(T t, Predicate<T> lambda) {
@@ -130,4 +146,20 @@ public class BasicLambdas {
     personList.sort(Comparator.comparing(Person::getHeight, Comparator.reverseOrder()));
     personList.forEach(p -> System.out.println(p));
   }
+}
+
+interface PrintableReview<T, U, V, W> {
+  void print(T t, U u, V v, W w);
+}
+
+interface SupplierReview<T> {
+  T supplier();
+}
+
+interface EvaluateReview<T, R> {
+  boolean isGreaterThan(T t, R r);
+}
+
+interface FunctionableReview<T, R> {
+  R apply(T t);
 }
